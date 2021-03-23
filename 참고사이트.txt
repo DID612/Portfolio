@@ -1,0 +1,38 @@
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="dataSource" />
+    <property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"></property>
+</bean>
+<bean id="Mapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.green.spring.dao.Mapper"></property>
+    <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+</bean>
+<mybatis-spring:scan base-package="kr.green.spring.controller.dao"/>
+
+classpath:mappers/**/*Mapper.xml 
+어딨을까
+
+eclipse 폴더가 패키지처럼 보여요
+
+https://okky.kr/article/456597
+
+java.lang.IllegalStateException: java.io.IOException: java.lang.reflect.InvocationTargetException
+
+http://blog.naver.com/PostView.nhn?blogId=sim4858&logNo=221007278858
+
+https://galid1.tistory.com/504
+
+https://stufeel.tistory.com/8
+
+https://velog.io/@max9106/Spring-Autowired-b4k546knz1
+
+https://java119.tistory.com/101
+
+https://suyou.tistory.com/78
+
+https://namubada.net/277
+
+https://backend-intro.vlpt.us/3/
+
+https://alpreah.tistory.com/121
+
+https://docs.iamport.kr/tech/mobile-authentication?lang=ko

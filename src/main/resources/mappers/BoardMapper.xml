@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.green.testportfolio.dao.BoardDao">
+
+  <select id="getBoard" resultType="kr.green.testportfolio.vo.BoardVo">
+    select * from board where isDel = 'N'
+    	<if test="cri.type == 1">
+    		and (title like concat('%',#{cri.search}, '%')
+    		or content like concat('%',#{cri.search}, '%')
+    		or writer like concat('%',#{cri.search}, '%'))
+    	</if>
+    	<if test="cri.type == 2">
+    		and title like concat('%',#{cri.search}, '%')
+    	</if>
+    	<if test="cri.type == 3">
+    		and content like concat('%',#{cri.search}, '%')
+    	</if>
+    	<if test="cri.type == 4">
+    		and writer like concat('%',#{cri.search}, '%')	
+    	</if>	
+    	order by bNum desc
+    	limit #{cri.pageStart}, #{cri.perPageNum}
+  </select>
+  
+  <select id="getTotalCount" resultType="int">
+    select count(*) from board where isDel = 'N'
+    	<if test="cri.type == 1">
+    		and (title like concat('%',#{cri.search}, '%')
+    		or content like concat('%',#{cri.search}, '%')
+    		or writer like concat('%',#{cri.search}, '%'))
+    	</if>
+    	<if test="cri.type == 2">
+    		and title like concat('%',#{cri.search}, '%')
+    	</if>
+    	<if test="cri.type == 3">
+    		and content like concat('%',#{cri.search}, '%')
+    	</if>
+    	<if test="cri.type == 4">
+    		and writer like concat('%',#{cri.search}, '%')
+    	</if>
+  </select>
+
+  <select id="getDetail" resultType="kr.green.testportfolio.vo.BoardVo">
+    select * from board where bNum = #{bNum}
+  </select>
+  
+  <update id="updateDetail" parameterType="kr.green.testportfolio.vo.BoardVo">
+  	update board 
+  		set title = #{board.title},
+  			content = #{board.content}
+  		where bNum = #{board.bNum}
+  </update>
+  
+  <insert id="insertBoard" parameterType="kr.green.testportfolio.vo.BoardVo">
+  	insert into board (title, content, writer)
+  		values (#{board.title}, #{board.content}, #{board.writer})
+  </insert>
+  
+  <update id="deleteBoard">
+  	update board
+  		set isDel = 'Y'
+  		where bNum = #{bNum}
+  </update>
+  
+</mapper>
