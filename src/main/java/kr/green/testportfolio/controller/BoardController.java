@@ -3,6 +3,7 @@ package kr.green.testportfolio.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,8 @@ import kr.green.testportfolio.pagination.Criteria;
 import kr.green.testportfolio.pagination.PageMaker;
 import kr.green.testportfolio.service.BoardService;
 import kr.green.testportfolio.vo.BoardVo;
+import kr.green.testportfolio.vo.CategoryVo;
+import kr.green.testportfolio.vo.GoodsVo;
 import kr.green.testportfolio.vo.UserVo;
 
 @Controller
@@ -72,6 +75,17 @@ public class BoardController {
 		
 		System.out.println(user + "암");
 		model.addAttribute("user", user);
+		return "/board/register";
+	}
+	
+	@RequestMapping(value = "/register/goods", method = RequestMethod.GET)
+	public String getRegisterGoodsBoard(Model model, HttpServletRequest req) {
+		logger.info("register/goods 호출");
+		HttpSession session = req.getSession();
+		UserVo user = (UserVo)session.getAttribute("user");
+		List<CategoryVo> category = boardservice.selectCategory();
+		model.addAttribute("user", user);
+		model.addAttribute("category", category);
 		return "/board/register";
 	}
 	

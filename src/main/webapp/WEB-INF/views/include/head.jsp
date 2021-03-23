@@ -37,6 +37,10 @@
 		   <li class="nav-item">
 		     <a class="nav-link" href="${pageContext.request.contextPath}/list">게시판</a>
 		   </li>
+		   
+		   <li class="nav-item">
+		     <a class="nav-link" href="${pageContext.request.contextPath}/register/goods">상품등록</a>
+		   </li>
 		</ul>
 		<c:if test="${user.id!= null}">
 			${user.id}님 환영합니다.

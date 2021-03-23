@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import kr.green.testportfolio.dao.BoardDao;
 import kr.green.testportfolio.pagination.Criteria;
 import kr.green.testportfolio.vo.BoardVo;
+import kr.green.testportfolio.vo.CategoryVo;
+import kr.green.testportfolio.vo.GoodsVo;
 
 @Service
 public class BoardServiceImp implements BoardService {
@@ -44,6 +46,11 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public int getTotalCount(Criteria cri) {
 		return boardDao.getTotalCount(cri);
+	}
+
+	@Override
+	public ArrayList<CategoryVo> selectCategory() {
+		return boardDao.selectCategory();
 	}
 	
 }

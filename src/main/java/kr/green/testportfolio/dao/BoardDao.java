@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 
 import kr.green.testportfolio.pagination.Criteria;
 import kr.green.testportfolio.vo.BoardVo;
+import kr.green.testportfolio.vo.CategoryVo;
+import kr.green.testportfolio.vo.GoodsVo;
 
 public interface BoardDao {
 
@@ -21,6 +23,8 @@ public interface BoardDao {
 	ArrayList<BoardVo> getBoard(@Param("cri")Criteria cri);
 
 	int getTotalCount(@Param("cri")Criteria cri);
+
+	ArrayList<CategoryVo> selectCategory();
 
 }
 		
