@@ -25,6 +25,7 @@ import kr.green.testportfolio.vo.BoardVo;
 import kr.green.testportfolio.vo.CategoryVo;
 import kr.green.testportfolio.vo.GoodsVo;
 import kr.green.testportfolio.vo.UserVo;
+import net.sf.json.JSONArray;
 
 @Controller
 public class BoardController {
@@ -85,7 +86,7 @@ public class BoardController {
 		UserVo user = (UserVo)session.getAttribute("user");
 		List<CategoryVo> category = boardservice.selectCategory();
 		model.addAttribute("user", user);
-		model.addAttribute("category", category);
+		model.addAttribute("category", JSONArray.fromObject(category));
 		return "/board/register";
 	}
 	

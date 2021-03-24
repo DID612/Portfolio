@@ -1,0 +1,10 @@
+'with cateCodeRef is null connect by prior cateCode = cateCodeRef'
+
+with 임시테이블 생성
+
+connect by prior
+
+mysql은 start with 지원하지 않는다
+
+https://velog.io/@cocodori/MySQL%EC%97%90%EC%84%9C-%EA%B3%84%EC%B8%B5%ED%98%95-%EC%BF%BC%EB%A6%AC-%EB%AC%B8%EC%A0%9C%EC%99%80-%EA%B7%B8-%EC%99%B8 
+mysql 구현시 참조
