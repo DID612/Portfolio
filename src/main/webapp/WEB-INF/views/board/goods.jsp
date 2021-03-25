@@ -9,14 +9,6 @@
 </head>
 <body>
 
-	<div class="inputArea"> 
-	  <label>1차 분류</label>
-	  <select class="category1">
-	   <option value="">전체</option>
-	  </select>
-	</div>
-	
-
   <form action="${pageContext.request.contextPath}/register/goods" method="post"" enctype="multipart/form-data" autocomplete="off">
 		
 	<div class="inputArea"> 
@@ -57,7 +49,8 @@
 	
 	${goods}
 	${user}
-	
+	${category}
+	cate1Select
 	<h1>파일업로드</h1>
     <input type="file" class="fileDrop" name="uploadfile" id="uploadfile"placeholder="${savedName}" /><br/>	
 
@@ -237,7 +230,7 @@
 	}
 
 	// 1차 분류 셀렉트 박스에 데이터 삽입
-	var cate1Select = $("select.category1")
+	var cate1Select = $("select.category1");
 
 	for(var i = 0; i < cate1Arr.length; i++) {
 	 cate1Select.append("<option value='" + cate1Arr[i].cateCode + "'>"

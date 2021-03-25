@@ -87,7 +87,8 @@ public class BoardController {
 		List<CategoryVo> category = boardservice.selectCategory();
 		model.addAttribute("user", user);
 		model.addAttribute("category", JSONArray.fromObject(category));
-		return "/board/register";
+		System.out.println(category);
+		return "/board/goods";
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)

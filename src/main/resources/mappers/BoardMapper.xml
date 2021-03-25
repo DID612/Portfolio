@@ -65,6 +65,6 @@
   </update>
   
   <select id="selectCategory" resultType="kr.green.testportfolio.vo.CategoryVo">
-	select * from goods_category where level = #{goods_category.level}
+	select * from goods_category
   </select>
 </mapper>
