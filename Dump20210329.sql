@@ -89,7 +89,7 @@ CREATE TABLE `goods` (
   `save_file_name` varchar(45) NOT NULL DEFAULT 'yy',
   `file_size` int NOT NULL DEFAULT '1',
   `isDel` varchar(1) NOT NULL DEFAULT 'N',
-  PRIMARY KEY (`gNum`,`gMaker`)
+  PRIMARY KEY (`gNum`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -117,7 +117,8 @@ CREATE TABLE `goods_category` (
   `level` int DEFAULT '1',
   PRIMARY KEY (`cateCode`),
   KEY `fk_goods_idx` (`cateCodeRef`),
-  KEY `fk_re_goods_category_idx` (`cateCodeRef`)
+  KEY `fk_re_goods_category_idx` (`cateCodeRef`),
+  CONSTRAINT `goods_category_ibfk_1` FOREIGN KEY (`cateCodeRef`) REFERENCES `goods_category` (`cateCode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -127,7 +128,7 @@ CREATE TABLE `goods_category` (
 
 LOCK TABLES `goods_category` WRITE;
 /*!40000 ALTER TABLE `goods_category` DISABLE KEYS */;
-INSERT INTO `goods_category` VALUES ('100','패션의류','',1),('101','상의','100',2),('102','하의','100',2),('200','생필품',NULL,1),('201','식품','200',2),('202','세제','200',2),('203','바디/헤어','200',2),('300','디지털','',1),('301','모니터','300',2),('302','키보드','300',2),('303','마우스','300',2);
+INSERT INTO `goods_category` VALUES ('100','패션의류',NULL,1),('101','상의','100',2),('102','하의','100',2),('200','생필품',NULL,1),('201','식품','200',2),('202','세제','200',2),('203','바디/헤어','200',2),('300','디지털',NULL,1),('301','모니터','300',2),('302','키보드','300',2),('303','마우스','300',2);
 /*!40000 ALTER TABLE `goods_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -173,4 +174,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-24 17:42:30
+-- Dump completed on 2021-03-29 17:40:57

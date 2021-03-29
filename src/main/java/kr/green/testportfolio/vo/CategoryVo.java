@@ -29,15 +29,6 @@ public class CategoryVo {
 		this.level = level;
 	}
 	
-	CategoryVo(){};
-	
-	public CategoryVo(String cateCode, String cateName, String cateCodeRef, int level) {
-		super();
-		this.cateCode = cateCode;
-		this.cateName = cateName;
-		this.cateCodeRef = cateCodeRef;
-		this.level = level;
-	}
-	
+	public CategoryVo(){};
 	
 }

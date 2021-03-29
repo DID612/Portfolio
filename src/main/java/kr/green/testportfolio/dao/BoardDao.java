@@ -26,5 +26,9 @@ public interface BoardDao {
 
 	ArrayList<CategoryVo> selectCategory();
 
+	void insertCategory(@Param("category")CategoryVo category);
+
+	void insertGoods(@Param("goods")GoodsVo goods);
+
 }
 		

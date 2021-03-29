@@ -4,10 +4,8 @@ import java.util.Date;
 
 public class GoodsVo {
 	private int gNum, gPrice, gStock, file_size;
-	private String gName, cateCode, gdsImg, tumbImg, gMaker, org_file_name, save_file_name, isDel;
+	private String gName, cateCode, gdsImg, gMaker, org_file_name, save_file_name, isDel;
 	private Date gReceptionDay;
-	
-	
 	
 public int getgNum() {
 		return gNum;
@@ -51,12 +49,6 @@ public int getgNum() {
 	public void setGdsImg(String gdsImg) {
 		this.gdsImg = gdsImg;
 	}
-	public String getTumbImg() {
-		return tumbImg;
-	}
-	public void setTumbImg(String tumbImg) {
-		this.tumbImg = tumbImg;
-	}
 	public String getgMaker() {
 		return gMaker;
 	}
@@ -88,36 +80,5 @@ public int getgNum() {
 		this.gReceptionDay = gReceptionDay;
 	}
 	
-String Img() {
-		return tumbImg;
-	}
-	public void setTumbImg1(String tumbImg) {
-		this.tumbImg = tumbImg;
-	}
-	public Date getGReception() {
-		return gReceptionDay;
-	}
-	public void setGReceptionDay(Date gdsDate) {
-		this.gReceptionDay = gdsDate;
-	}
-	
-	public GoodsVo(int gNum, int gPrice, int gStock, int file_size, String gName, String cateCode, String gdsImg,
-			String tumbImg, String gMaker, String org_file_name, String save_file_name, String isDel,
-			Date gReceptionDay) {
-		super();
-		this.gNum = gNum;
-		this.gPrice = gPrice;
-		this.gStock = gStock;
-		this.file_size = file_size;
-		this.gName = gName;
-		this.cateCode = cateCode;
-		this.gdsImg = gdsImg;
-		this.tumbImg = tumbImg;
-		this.gMaker = gMaker;
-		this.org_file_name = org_file_name;
-		this.save_file_name = save_file_name;
-		this.isDel = isDel;
-		this.gReceptionDay = gReceptionDay;
-	}
-
+	public GoodsVo() {}
 }

@@ -22,5 +22,9 @@ public interface BoardService {
 	int getTotalCount(Criteria cri);
 
 	ArrayList<CategoryVo> selectCategory();
+
+	void insertCategory(CategoryVo category);
+
+	void insertGoods(GoodsVo goods);
 	
 }

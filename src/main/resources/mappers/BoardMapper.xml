@@ -67,4 +67,15 @@
   <select id="selectCategory" resultType="kr.green.testportfolio.vo.CategoryVo">
 	select * from goods_category
   </select>
+  
+    <insert id="insertCategory" parameterType="kr.green.testportfolio.vo.CategoryVo">
+  	insert into goods_category (cateCode, cateName, cateCodeRef, level)
+  		values (#{category.cateCode}, #{category.cateName}, #{category.cateCodeRef}, #{category.level)
+  </insert>
+  
+  <!-- 상품 등록 -->
+	<insert id="insertGoods" parameterType="kr.green.testportfolio.vo.GoodsVo">
+	 insert into goods (gPrice, gStock, gName, gMaker, gReceptionDay, cateCode, org_file_name, save_file_name, file_size, isDel)
+	     values (#{gPrice}, #{gStock}, #{gName}, #{gMaker}, #{gReceptionDay}, #{cateCode}, #{org_file_name}, #{save_file_name}, #{file_size}, #{isDel})
+	</insert>
 </mapper>

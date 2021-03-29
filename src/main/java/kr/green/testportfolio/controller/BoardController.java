@@ -91,6 +91,16 @@ public class BoardController {
 		return "/board/goods";
 	}
 	
+	@RequestMapping(value = "/register/goods", method = RequestMethod.POST)
+	public String postRegisterGoods(Model model, BoardVo board, MultipartFile uploadfile, CategoryVo category, GoodsVo goods) {
+		/*saveFile(uploadfile);
+		boardservice.insertBoard(board);
+		boardservice.insertCategory(category);
+		boardservice.insertGoods(goods);
+		*/
+		return "redirect:/board/list";
+	}
+	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String postRegisterBoard(Model model, BoardVo board, MultipartFile uploadfile) {
 	    logger.info("upload() POST 호출");

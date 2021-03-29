@@ -52,5 +52,17 @@ public class BoardServiceImp implements BoardService {
 	public ArrayList<CategoryVo> selectCategory() {
 		return boardDao.selectCategory();
 	}
+
+	@Override
+	public void insertCategory(CategoryVo category) {
+		boardDao.insertCategory(category);
+		
+	}
+
+	@Override
+	public void insertGoods(GoodsVo goods) {
+		boardDao.insertGoods(goods);
+		
+	}
 	
 }

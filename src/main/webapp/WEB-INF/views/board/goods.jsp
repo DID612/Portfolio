@@ -9,52 +9,7 @@
 </head>
 <body>
 
-  <form action="${pageContext.request.contextPath}/register/goods" method="post"" enctype="multipart/form-data" autocomplete="off">
-		
-	<div class="inputArea"> 
-	 <label>1차 분류</label>
-	 <select class="category1">
-	  <option value="">전체</option>
-	 </select>
-	
-	 <label>2차 분류</label>
-	 <select class="category2" name="cateCode">
-	  <option value="">전체</option>
-	 </select>
-	</div>
-	
-	<div class="inputArea">
-	 <label for="gdsName">상품명</label>
-	 <input type="text" id="gdsName" name="gdsName" />
-	</div>
-	
-	<div class="inputArea">
-	 <label for="gdsPrice">상품가격</label>
-	 <input type="text" id="gdsPrice" name="gdsPrice" />
-	</div>
-	
-	<div class="inputArea">
-	 <label for="gdsStock">상품수량</label>
-	 <input type="text" id="gdsStock" name="gdsStock" />
-	</div>
-	
-	<div class="inputArea">
-	 <label for="gdsDes">상품소개</label>
-	 <textarea rows="5" cols="50" id="gdsDes" name="gdsDes"></textarea>
-	</div>
-	
-	<div class="inputArea">
-	 <button type="submit" id="register_Btn" class="btn btn-primary">등록</button>
-	</div>
-	
-	${goods}
-	${user}
-	${category}
-	cate1Select
-	<h1>파일업로드</h1>
-    <input type="file" class="fileDrop" name="uploadfile" id="uploadfile"placeholder="${savedName}" /><br/>	
-
-	<h1>작성</h1>
+  <form action="${pageContext.request.contextPath}/register/goods" method="post" enctype="multipart/form-data" autocomplete="off">	
     <div class="form-group">
       <label for="usr">제목:</label>
       <input type="text" class="form-control" id="title" name="title" value="${board.title}">
@@ -64,6 +19,42 @@
       <label for="pwd">작성자:</label>
       <input type="text" class="form-control" id="writer" name="writer" value="${user.id}" readonly>
     </div>
+			
+	<div class="inputArea"> 
+		<label>1차 분류</label>
+		<select class="category1">
+		  	<option value="">전체</option>
+		</select>
+	 
+		<label>2차 분류</label>
+		<select class="category2" name="cateCode">
+			<option value="">전체</option>
+		</select>
+	</div>
+	
+	<label for="gdsTumb">상품이미지 등록</label>
+    <input type="file" class="fileDrop" name="uploadfile" id="uploadfile"placeholder="${savedName}" /><br/>	
+	
+	
+	<div class="inputArea">
+	 <label for="gName">상품명</label>
+	 <input type="text" id="gName" name="gName" />
+	</div>
+	
+	<div class="inputArea">
+	 <label for="gPrice">상품가격</label>
+	 <input type="text" id="gPrice" naㅠme="gPrice" />
+	</div>
+	
+	<div class="inputArea">
+	 <label for="gStock">상품수량</label>
+	 <input type="text" id="gStock" name="gStock" />
+	</div>
+	
+	<div class="inputArea">
+	 <label for="gDes">상품소개</label>
+	 <textarea rows="5" cols="50" height="150px" id="gDes" name="gDes"></textarea>
+	</div>
     
   	<div class="form-group" style="display:none">
 	  <label for="comment">내용:</label>
@@ -74,6 +65,7 @@
 	<br>
 	<button type="submit" class="btn btn-primary">등록</button>  	
   </form>
+  
   <script type="text/javascript">
   	$('#summernote').summernote({
       placeholder: 'Hello Bootstrap 4',
@@ -154,8 +146,34 @@
 			
 		});//uploadedList
 		
-		$(document).on("change", "select.category1", function(){
+		// 컨트롤러에서 데이터 받기
+		var jsonData = JSON.parse('${category}');
+		console.log(jsonData);
 
+		var cate1Arr = new Array();
+		var cate1Obj = new Object();
+
+		// 1차 분류 셀렉트 박스에 삽입할 데이터 준비
+		for(var i = 0; i < jsonData.length; i++) {
+		 
+		 if(jsonData[i].level == "1") {
+		  cate1Obj = new Object();  //초기화
+		  cate1Obj.cateCode = jsonData[i].cateCode;
+		  cate1Obj.cateName = jsonData[i].cateName;
+		  cate1Arr.push(cate1Obj);
+		 }
+		}
+
+		// 1차 분류 셀렉트 박스에 데이터 삽입
+		var cate1Select = $("select.category1")
+
+		for(var i = 0; i < cate1Arr.length; i++) {
+		 cate1Select.append("<option value='" + cate1Arr[i].cateCode + "'>"
+		      + cate1Arr[i].cateName + "</option>"); 
+		}
+		
+		$(document).on("change", "select.category1", function(){
+			console.log('ddd');
 			 var cate2Arr = new Array();
 			 var cate2Obj = new Object();
 			 
@@ -180,63 +198,43 @@
 			 } 
 			});
 		
-	/* 컨트롤러로 부터 전송받은 파일이 이미지 파일인지 확인하는 함수 */
-	function checkImageType(fileName){
-		var pattern = /jpg$|gif$|png$|jpeg$/i;
-		return fileName.match(pattern);
-	}//checkImageType
-	
-	//파일 이름 처리 : UUID 가짜 이름 제거
-	function getOriginalName(fileName){
-		if(checkImageType(fileName)){
-			return;
-	}
-		
-		var idx = fileName.indexOf("_") + 1;
-		return fileName.substr(idx);
-			
-	}//getOriginalName
-	
-	//이미지 원본 링크 제공
-	function getImageLink(fileName){
-		
-		if(!checkImageType(fileName)){
-			return;
-		}//if
-		
-		var front = fileName.substr(0, 12);
-		var end = fileName.substr(14);
-		
-		return front + end;
-		
-	}//getImageLink
-	
-	// 컨트롤러에서 데이터 받기
-	var jsonData = JSON.parse('${category}');
-	console.log(jsonData);
+		$(document).on("change", "select.category1", function(){
 
-	var cate1Arr = new Array();
-	var cate1Obj = new Object();
+			 var cate2Arr = new Array();
+			 var cate2Obj = new Object();
+			 
+			 // 2차 분류 셀렉트 박스에 삽입할 데이터 준비
+			 for(var i = 0; i < jsonData.length; i++) {
+			  
+			  if(jsonData[i].level == "2") {
+			   cate2Obj = new Object();  //초기화
+			   cate2Obj.cateCode = jsonData[i].cateCode;
+			   cate2Obj.cateName = jsonData[i].cateName;
+			   cate2Obj.cateCodeRef = jsonData[i].cateCodeRef;
+			   
+			   cate2Arr.push(cate2Obj);
+			  }
+			 }
+			 
+			 var cate2Select = $("select.category2");
+		 
+			 cate2Select.children().remove();
 
-	// 1차 분류 셀렉트 박스에 삽입할 데이터 준비
-	for(var i = 0; i < jsonData.length; i++) {
-	 
-	 if(jsonData[i].level == "1") {
-	  cate1Obj = new Object();  //초기화
-	  cate1Obj.cateCode = jsonData[i].cateCode;
-	  cate1Obj.cateName = jsonData[i].cateName;
-	  cate1Arr.push(cate1Obj);
-	 }
-	}
-
-	// 1차 분류 셀렉트 박스에 데이터 삽입
-	var cate1Select = $("select.category1");
-
-	for(var i = 0; i < cate1Arr.length; i++) {
-	 cate1Select.append("<option value='" + cate1Arr[i].cateCode + "'>"
-	      + cate1Arr[i].cateName + "</option>"); 
-	}
-
+			 $("option:selected", this).each(function(){
+			  
+			  var selectVal = $(this).val();  
+			  cate2Select.append("<option value='" + selectVal + "'>전체</option>");
+			  
+			  for(var i = 0; i < cate2Arr.length; i++) {
+			   if(selectVal == cate2Arr[i].cateCodeRef) {
+			    cate2Select.append("<option value='" + cate2Arr[i].cateCode + "'>"
+			         + cate2Arr[i].cateName + "</option>");
+			   }
+			  }
+			  
+			 });
+			 
+			});
 
   </script>
 </body>
