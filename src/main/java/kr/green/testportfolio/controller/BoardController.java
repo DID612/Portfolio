@@ -24,6 +24,7 @@ import kr.green.testportfolio.service.BoardService;
 import kr.green.testportfolio.vo.BoardVo;
 import kr.green.testportfolio.vo.CategoryVo;
 import kr.green.testportfolio.vo.GoodsVo;
+import kr.green.testportfolio.vo.TestVo;
 import kr.green.testportfolio.vo.UserVo;
 import net.sf.json.JSONArray;
 
@@ -74,7 +75,6 @@ public class BoardController {
 		
 //		UserVo user = (UserVo)req.getAttribute("user");
 		
-		System.out.println(user + "암");
 		model.addAttribute("user", user);
 		return "/board/register";
 	}
@@ -84,7 +84,9 @@ public class BoardController {
 		logger.info("register/goods 호출");
 		HttpSession session = req.getSession();
 		UserVo user = (UserVo)session.getAttribute("user");
+		
 		List<CategoryVo> category = boardservice.selectCategory();
+		
 		model.addAttribute("user", user);
 		model.addAttribute("category", JSONArray.fromObject(category));
 		System.out.println(category);
@@ -92,13 +94,24 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/register/goods", method = RequestMethod.POST)
-	public String postRegisterGoods(Model model, BoardVo board, MultipartFile uploadfile, CategoryVo category, GoodsVo goods) {
+	public String postRegisterGoods(Model model, CategoryVo category, MultipartFile uploadfile, GoodsVo goods) {
 		/*saveFile(uploadfile);
 		boardservice.insertBoard(board);
 		boardservice.insertCategory(category);
 		boardservice.insertGoods(goods);
 		*/
-		return "redirect:/board/list";
+		
+		return "redirect:/list";
+	}
+	
+	@RequestMapping(value = "/register/test", method = RequestMethod.GET)
+	public String getRegisterTest(Model model) {
+		return "/board/test";
+	}
+	
+	@RequestMapping(value = "/register/test", method = RequestMethod.POST)
+	public String postRegisterTest(Model model, TestVo test01) {
+		return "redirect:/register/test";
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)

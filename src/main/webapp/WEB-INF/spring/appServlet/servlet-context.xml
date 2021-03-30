@@ -57,6 +57,7 @@
 			<interceptor>
 		        <mapping path="/register"/>
 		        <mapping path="/updateDetail"/>
+				<mapping path="/register/goods"/>
 		        <beans:ref bean="authInterceptor"/>
 		    </interceptor>
 		</interceptors>

@@ -75,7 +75,7 @@
   
   <!-- 상품 등록 -->
 	<insert id="insertGoods" parameterType="kr.green.testportfolio.vo.GoodsVo">
-	 insert into goods (gPrice, gStock, gName, gMaker, gReceptionDay, cateCode, org_file_name, save_file_name, file_size, isDel)
-	     values (#{gPrice}, #{gStock}, #{gName}, #{gMaker}, #{gReceptionDay}, #{cateCode}, #{org_file_name}, #{save_file_name}, #{file_size}, #{isDel})
+	 insert into goods (gPrice, gStock, gName, gMaker, gReceptionDay, cateCode, org_file_name, save_file_name, file_size, isDel, content, title, views, writer, registerDate, gDes, gPhone)
+	     values (#{gPrice}, #{gStock}, #{gName}, #{gMaker}, #{gReceptionDay}, #{cateCode}, #{org_file_name}, #{save_file_name}, #{file_size}, #{isDel}, #{content}, #{title}, #{views}, #{writer}, #{registerDate}, #{gDes}, #{gPhone})
 	</insert>
 </mapper>

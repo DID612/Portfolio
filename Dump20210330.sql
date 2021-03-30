@@ -80,15 +80,20 @@ CREATE TABLE `goods` (
   `gPrice` int NOT NULL DEFAULT '1',
   `gStock` int NOT NULL DEFAULT '100',
   `gName` varchar(45) NOT NULL DEFAULT 'yy',
-  `tumbImg` varchar(100) NOT NULL DEFAULT 'yy',
   `gMaker` varchar(45) NOT NULL DEFAULT 'yy',
-  `gPhoneNumber` varchar(45) NOT NULL DEFAULT 'yy',
-  `gReceptionDay` int NOT NULL DEFAULT '1',
+  `gPhone` varchar(45) NOT NULL DEFAULT 'yy',
+  `gReceptionDay` int DEFAULT '1',
   `cateCode` varchar(30) NOT NULL DEFAULT '없음',
-  `org_file_name` varchar(255) NOT NULL DEFAULT 'yy',
-  `save_file_name` varchar(45) NOT NULL DEFAULT 'yy',
-  `file_size` int NOT NULL DEFAULT '1',
+  `org_file_name` varchar(255) DEFAULT 'yy',
+  `save_file_name` varchar(45) DEFAULT 'yy',
+  `file_size` int DEFAULT '1',
   `isDel` varchar(1) NOT NULL DEFAULT 'N',
+  `content` varchar(45) NOT NULL,
+  `title` varchar(45) NOT NULL,
+  `views` int NOT NULL DEFAULT '0',
+  `writer` varchar(20) NOT NULL,
+  `registerDate` date NOT NULL DEFAULT '2021-03-30',
+  `gDes` varchar(45) NOT NULL,
   PRIMARY KEY (`gNum`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -99,7 +104,7 @@ CREATE TABLE `goods` (
 
 LOCK TABLES `goods` WRITE;
 /*!40000 ALTER TABLE `goods` DISABLE KEYS */;
-INSERT INTO `goods` VALUES (1,50000,100,'키보드','0','삼성','1919',3,'302','','',0,'N'),(2,23000,100,'후드','0','무신사','1442',7,'101','','',0,'N'),(3,5000,100,'바지','0','돗자리','1',1,'102','yy','yy',0,'N');
+INSERT INTO `goods` VALUES (1,50000,100,'키보드','삼성','1919',3,'302','','',0,'N','','',0,'','0000-00-00',''),(2,23000,100,'후드','무신사','1442',7,'101','','',0,'N','','',0,'','0000-00-00',''),(3,5000,100,'바지','돗자리','1',1,'102','yy','yy',0,'N','','',0,'','0000-00-00','');
 /*!40000 ALTER TABLE `goods` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -174,4 +179,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-29 17:40:57
+-- Dump completed on 2021-03-30 17:44:43

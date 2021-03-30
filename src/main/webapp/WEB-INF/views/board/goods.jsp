@@ -14,7 +14,7 @@
       <label for="usr">제목:</label>
       <input type="text" class="form-control" id="title" name="title" value="${board.title}">
     </div>
-    
+
     <div class="form-group">
       <label for="pwd">작성자:</label>
       <input type="text" class="form-control" id="writer" name="writer" value="${user.id}" readonly>
@@ -31,34 +31,39 @@
 			<option value="">전체</option>
 		</select>
 	</div>
-	
-	<label for="gdsTumb">상품이미지 등록</label>
-    <input type="file" class="fileDrop" name="uploadfile" id="uploadfile"placeholder="${savedName}" /><br/>	
-	
-	
+    
 	<div class="inputArea">
-	 <label for="gName">상품명</label>
-	 <input type="text" id="gName" name="gName" />
+		 <label for="org_file_name">이미지</label>
+		 <input type="file" id="org_file_name" name="file" />
+		 <div class="select_img"><img src="" />
+    </div>
+
+	
+	<input type="file" name="file">
+
+	<div class="inputArea">
+		 <label for="gName">상품명</label>
+		 <input type="text" id="gName" name="gName" />
 	</div>
 	
 	<div class="inputArea">
-	 <label for="gPrice">상품가격</label>
-	 <input type="text" id="gPrice" naㅠme="gPrice" />
+		 <label for="gPrice">상품가격</label>
+		 <input type="text" id="gPrice" name="gPrice" />
 	</div>
 	
 	<div class="inputArea">
-	 <label for="gStock">상품수량</label>
-	 <input type="text" id="gStock" name="gStock" />
+		 <label for="gStock">상품수량</label>
+		 <input type="text" id="gStock" name="gStock" />
 	</div>
 	
 	<div class="inputArea">
-	 <label for="gDes">상품소개</label>
-	 <textarea rows="5" cols="50" height="150px" id="gDes" name="gDes"></textarea>
+		 <label for="gDes">상품소개</label>
+		 <textarea rows="5" cols="50" id="gDes" name="gDes"></textarea>
 	</div>
     
   	<div class="form-group" style="display:none">
-	  <label for="comment">내용:</label>
-	  <textarea class="form-control" rows="5" id="content" name="content"></textarea>
+		  <label for="comment">내용:</label>
+		  <textarea class="form-control" rows="5" id="content" name="content"></textarea>
 	</div>
 	
 	<div id="summernote"></div>
@@ -89,7 +94,8 @@
 	$(".fileDrop").on("change", function(event){
 		var files = event.originalEvent.dataTransfer.files;
 		var file = files[0];
-			//console.log(file);
+		console.log(files);
+		console.log(file);
 		var formData = new FormData(); // HTML5
 		formData.append("file", file);
 		
@@ -124,6 +130,16 @@
 		})// ajax
 	}) // input[file].change
 
+	$("#org_file_name").change(function(){
+		 if(this.files && this.files[0]) {
+		    var reader = new FileReader;
+		    reader.onload = function(data) {
+		     	$(".select_img img").attr("src", data.target.result).width(500);        
+		    }
+		    reader.readAsDataURL(this.files[0]);
+		 }
+	});
+	
 		//업로드 파일 삭제 처리
 		$(".uploadedList").on("click", "small", function(event){
 			
@@ -206,14 +222,14 @@
 			 // 2차 분류 셀렉트 박스에 삽입할 데이터 준비
 			 for(var i = 0; i < jsonData.length; i++) {
 			  
-			  if(jsonData[i].level == "2") {
-			   cate2Obj = new Object();  //초기화
-			   cate2Obj.cateCode = jsonData[i].cateCode;
-			   cate2Obj.cateName = jsonData[i].cateName;
-			   cate2Obj.cateCodeRef = jsonData[i].cateCodeRef;
+				if(jsonData[i].level == "2") {
+				   cate2Obj = new Object();  //초기화
+				   cate2Obj.cateCode = jsonData[i].cateCode;
+				   cate2Obj.cateName = jsonData[i].cateName;
+				   cate2Obj.cateCodeRef = jsonData[i].cateCodeRef;
 			   
-			   cate2Arr.push(cate2Obj);
-			  }
+			   	   cate2Arr.push(cate2Obj);
+			  	}
 			 }
 			 
 			 var cate2Select = $("select.category2");
@@ -222,19 +238,19 @@
 
 			 $("option:selected", this).each(function(){
 			  
-			  var selectVal = $(this).val();  
-			  cate2Select.append("<option value='" + selectVal + "'>전체</option>");
-			  
-			  for(var i = 0; i < cate2Arr.length; i++) {
-			   if(selectVal == cate2Arr[i].cateCodeRef) {
-			    cate2Select.append("<option value='" + cate2Arr[i].cateCode + "'>"
-			         + cate2Arr[i].cateName + "</option>");
-			   }
-			  }
+				  var selectVal = $(this).val();  
+				  cate2Select.append("<option value='" + selectVal + "'>전체</option>");
+				  
+				  for(var i = 0; i < cate2Arr.length; i++) {
+					   	if(selectVal == cate2Arr[i].cateCodeRef) {
+					    	cate2Select.append("<option value='" + cate2Arr[i].cateCode + "'>"
+					         + cate2Arr[i].cateName + "</option>");
+					   	}
+				  }
 			  
 			 });
 			 
-			});
+		});
 
   </script>
 </body>
