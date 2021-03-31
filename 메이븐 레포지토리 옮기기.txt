@@ -1,0 +1,6 @@
+https://devpad.tistory.com/19?category=773041
+
+
+<localRepository>D:\git\apache-maven-3.6.3\repository</localRepository>
+
+C:\Users\my604\.m2\repository
