@@ -26,5 +26,7 @@ public interface BoardService {
 	void insertCategory(CategoryVo category);
 
 	void insertGoods(GoodsVo goods);
+
+	ArrayList<GoodsVo> getListGoods(Criteria cri);
 	
 }

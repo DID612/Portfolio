@@ -32,15 +32,13 @@
 		</select>
 	</div>
     
-	<div class="inputArea">
+	<div class="inputArea file_wrap">
 		 <label for="org_file_name">이미지</label>
-		 <input type="file" id="org_file_name" name="file" />
-		 <div class="select_img"><img src="" />
+		 <input type="file" id="uploadfile" name="uploadfile" />
+		 <div class="select_img"><img src="" /></div>
     </div>
-
+    <%=request.getRealPath("/") %>
 	
-	<input type="file" name="file">
-
 	<div class="inputArea">
 		 <label for="gName">상품명</label>
 		 <input type="text" id="gName" name="gName" />
@@ -55,12 +53,7 @@
 		 <label for="gStock">상품수량</label>
 		 <input type="text" id="gStock" name="gStock" />
 	</div>
-	
-	<div class="inputArea">
-		 <label for="gDes">상품소개</label>
-		 <textarea rows="5" cols="50" id="gDes" name="gDes"></textarea>
-	</div>
-    
+
   	<div class="form-group" style="display:none">
 		  <label for="comment">내용:</label>
 		  <textarea class="form-control" rows="5" id="content" name="content"></textarea>
@@ -71,66 +64,24 @@
 	<button type="submit" class="btn btn-primary">등록</button>  	
   </form>
   
+  <form id="form" action="/upload/uploadForm" method="post" enctype="multipart/form-data">
+       
+  </form>
+  
+  
   <script type="text/javascript">
   	$('#summernote').summernote({
       placeholder: 'Hello Bootstrap 4',
       tabsize: 2,
       height: 300
-    });
+    })
     
     $('form').submit(function(){
   	  var code = $('#summernote').summernote('code');
   	  $('textarea[name=content]').val(code);
     })
 
-	$(".fileDrop").on("dragenter dragover", function(event){
-		event.preventDefault();
-	});
-	
-	$(".fileDrop").on("drop", function(event){
-		event.preventDefault();
-	});
-	
-	$(".fileDrop").on("change", function(event){
-		var files = event.originalEvent.dataTransfer.files;
-		var file = files[0];
-		console.log(files);
-		console.log(file);
-		var formData = new FormData(); // HTML5
-		formData.append("file", file);
-		
-		$.ajax({
-			url: '/upload/uploadAjax',
-			data: formData,
-			dataType: 'text',
-			processData: false,
-			contentType: false,
-			type: 'POST',
-			success: function(data){
-				//alert(data);
-				//서버로 파일을 전송한 다음에 그 파일을 다시 받아온다.?
-				console.log('test');
-				alert("되나?");
-				//이미지 인경우 썸네일을 보여준다.
-				if(checkImageType(data)){
-					str = "<div>"
-						+ "<a href='/upload/displayFile?fileName=" + getImageLink(data) + "'>"
-						+ "<img src='/upload/displayFile?fileName=" + data + "'/>"
-						+ "</a>"
-						+ "<small data-src='" + data + "'>X</small></div>";
-				}else {
-					str = "<div>"
-						+ "<a href='/upload/displayFile?fileName=" + data + "'>"
-						+ getOriginalName(data) + "</a>"
-						+ "<small data-src='" + data + "'>X</small></div>";
-				}//else
-					
-				$(".uploadedList").append(str);	
-			},
-		})// ajax
-	}) // input[file].change
-
-	$("#org_file_name").change(function(){
+	$(".file_wrap").change(function(){
 		 if(this.files && this.files[0]) {
 		    var reader = new FileReader;
 		    reader.onload = function(data) {
@@ -138,30 +89,8 @@
 		    }
 		    reader.readAsDataURL(this.files[0]);
 		 }
-	});
-	
-		//업로드 파일 삭제 처리
-		$(".uploadedList").on("click", "small", function(event){
-			
-			var that = $(this);
-			
-			alert($(this).attr("data-src"));
-			
-			$.ajax({
-				url: "/sample/upload/deleteFile",
-				type: "post",
-				data: {fileName:$(this).attr("data-src")},
-				dataType: "text",
-				success : function(result){
-					if(result == 'deleted'){
-						//alert("deleted");
-						that.parent("div").remove();
-					}//
-				},
-			});
-			
-		});//uploadedList
-		
+	})	
+
 		// 컨트롤러에서 데이터 받기
 		var jsonData = JSON.parse('${category}');
 		console.log(jsonData);
@@ -172,12 +101,12 @@
 		// 1차 분류 셀렉트 박스에 삽입할 데이터 준비
 		for(var i = 0; i < jsonData.length; i++) {
 		 
-		 if(jsonData[i].level == "1") {
-		  cate1Obj = new Object();  //초기화
-		  cate1Obj.cateCode = jsonData[i].cateCode;
-		  cate1Obj.cateName = jsonData[i].cateName;
-		  cate1Arr.push(cate1Obj);
-		 }
+			 if(jsonData[i].level == "1") {
+			  cate1Obj = new Object();  //초기화
+			  cate1Obj.cateCode = jsonData[i].cateCode;
+			  cate1Obj.cateName = jsonData[i].cateName;
+			  cate1Arr.push(cate1Obj);
+			 }
 		}
 
 		// 1차 분류 셀렉트 박스에 데이터 삽입

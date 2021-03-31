@@ -24,8 +24,47 @@
     	limit #{cri.pageStart}, #{cri.perPageNum}
   </select>
   
+  <select id="selectGoods" resultType="kr.green.testportfolio.vo.GoodsVo">
+    select * from goods where isDel = 'N'
+    	<if test="cri.type == 1">
+    		and (title like concat('%',#{cri.search}, '%')
+    		or content like concat('%',#{cri.search}, '%')
+    		or writer like concat('%',#{cri.search}, '%'))
+    	</if>
+    	<if test="cri.type == 2">
+    		and title like concat('%',#{cri.search}, '%')
+    	</if>
+    	<if test="cri.type == 3">
+    		and content like concat('%',#{cri.search}, '%')
+    	</if>
+    	<if test="cri.type == 4">
+    		and writer like concat('%',#{cri.search}, '%')	
+    	</if>	
+    	order by bNum desc
+    	limit #{cri.pageStart}, #{cri.perPageNum}
+  </select>
+  
+  
   <select id="getTotalCount" resultType="int">
     select count(*) from board where isDel = 'N'
+    	<if test="cri.type == 1">
+    		and (title like concat('%',#{cri.search}, '%')
+    		or content like concat('%',#{cri.search}, '%')
+    		or writer like concat('%',#{cri.search}, '%'))
+    	</if>
+    	<if test="cri.type == 2">
+    		and title like concat('%',#{cri.search}, '%')
+    	</if>
+    	<if test="cri.type == 3">
+    		and content like concat('%',#{cri.search}, '%')
+    	</if>
+    	<if test="cri.type == 4">
+    		and writer like concat('%',#{cri.search}, '%')
+    	</if>
+  </select>
+
+  <select id="getGoodsTotalCount" resultType="int">
+    select count(*) from goods where isDel = 'N'
     	<if test="cri.type == 1">
     		and (title like concat('%',#{cri.search}, '%')
     		or content like concat('%',#{cri.search}, '%')

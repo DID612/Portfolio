@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class GoodsVo {
 	private int gNum, gPrice, gStock, file_size, views, gReceptionDay;
-	private String gName, cateCode, gMaker, org_file_name, save_file_name, isDel, content, writer, title, gDes, gPhone;
+	private String gName, cateCode, gMaker, org_file_name, save_file_name, isDel, content, writer, title, gPhone;
 	private Date registerDate;
 
 
@@ -185,19 +185,7 @@ public class GoodsVo {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
-
-
-	public String getgDes() {
-		return gDes;
-	}
-
-
-
-	public void setgDes(String gDes) {
-		this.gDes = gDes;
-	}
-
+	
 
 
 	public String getgPhone() {

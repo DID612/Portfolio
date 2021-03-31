@@ -30,5 +30,7 @@ public interface BoardDao {
 
 	void insertGoods(@Param("goods")GoodsVo goods);
 
+	void selectGoods(@Param("cri")Criteria cri);
+
 }
 		

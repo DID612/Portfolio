@@ -64,5 +64,11 @@ public class BoardServiceImp implements BoardService {
 		boardDao.insertGoods(goods);
 		
 	}
+
+	@Override
+	public ArrayList<GoodsVo> getListGoods(Criteria cri) {
+		boardDao.selectGoods(cri);
+		return null;
+	}
 	
 }

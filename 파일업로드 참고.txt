@@ -7,3 +7,25 @@ https://www.hanumoka.net/2018/09/06/spring-20180906-spring-file-upload/
 https://yangbongsoo.gitbook.io/study/undefined/log
 https://addio3305.tistory.com/43?category=772645
 loggger info 간단히 구경, 2번째가 중요
+
+
+https://developer.mozilla.org/ko/docs/Web/API/FileReader/readAsDataURL
+웹개발자 중요
+
+https://heepie.me/155?category=789334
+래퍼클래스 사용
+
+https://cofs.tistory.com/334
+file to binary
+binary to file
+
+https://cloudstudying.kr/questions/7
+스프링 파일 업로드
+
+https://doublesprogramming.tistory.com/140
+미니쇼핑몰 상품관리 구현
+
+spring lagacy 만들고
+spring mvc 돌려보자
+
+mvc 구조 다시 공부해보자

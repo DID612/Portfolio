@@ -30,6 +30,29 @@ public class UploadController {
 	
 	private String uploadPath;
 	
+	@RequestMapping(value="/uploadForm", method = RequestMethod.GET)
+	public String uploadFormGET() {
+		return "/upload/uploadForm";
+	}
+
+	@RequestMapping(value="/uploadForm", method = RequestMethod.POST)
+	public String uploadFormPOST(MultipartFile file, Model model) throws Exception {
+		
+		logger.info("uploadFormPost");
+		
+		if(file != null) {
+			logger.info("originalName:" + file.getOriginalFilename());
+			logger.info("size:" + file.getSize());
+			logger.info("ContentType:" + file.getContentType());
+		}
+		
+		String savedName = uploadFile(file.getOriginalFilename(), file.getBytes());
+		
+		model.addAttribute("savedName", savedName);
+		
+		return "/upload/uploadForm";
+	}
+	
 	//업로드된 파일을 저장하는 함수
 	private String uploadFile(String originalName, byte[] fileDate) throws IOException {
 		

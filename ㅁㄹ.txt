@@ -1,0 +1,59 @@
+	var oriFile = $('#org_file_name').value();
+		console.log(oriFile);
+		var file = files[0];
+		var formData = new FormData(); // HTML5
+		formData.append("file", file);
+		
+		$.ajax({
+			url: '/upload/uploadAjax',
+			data: formData,
+			dataType: 'text',
+			processData: false,
+			contentType: false,
+			type: 'POST',
+			success: function(data){
+				//alert(data);
+				//서버로 파일을 전송한 다음에 그 파일을 다시 받아온다.?
+				console.log('test');
+				alert("되나?");
+				//이미지 인경우 썸네일을 보여준다.
+				if(checkImageType(data)){
+					str = "<div>"
+						+ "<a href='/upload/displayFile?fileName=" + getImageLink(data) + "'>"
+						+ "<img src='/upload/displayFile?fileName=" + data + "'/>"
+						+ "</a>"
+						+ "<small data-src='" + data + "'>X</small></div>";
+				}else {
+					str = "<div>"
+						+ "<a href='/upload/displayFile?fileName=" + data + "'>"
+						+ getOriginalName(data) + "</a>"
+						+ "<small data-src='" + data + "'>X</small></div>";
+				}//else
+					
+				$(".uploadedList").append(str);	
+
+
+
+
+	
+	//업로드 파일 삭제 처리
+	$(".uploadedList").on("click", "small", function(event){
+		
+		var that = $(this);
+		
+		alert($(this).attr("data-src"));
+		
+		$.ajax({
+			url: "/upload/deleteFile",
+			type: "post",
+			data: {fileName:$(this).attr("data-src")},
+			dataType: "text",
+			success : function(result){
+				if(result == 'deleted'){
+					//alert("deleted");
+					that.parent("div").remove();
+				}//
+			},
+		});
+
+	});//uploadedList
