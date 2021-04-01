@@ -32,12 +32,12 @@
 		</select>
 	</div>
     
+    <!-- src 문제 -->
 	<div class="inputArea file_wrap">
 		 <label for="org_file_name">이미지</label>
-		 <input type="file" id="uploadfile" name="uploadfile" />
-		 <div class="select_img"><img src="" /></div>
+		 <input type="file" id="org_file_name" name="uploadfile" />
+		 <div class="select_img"><img class="thumb_img" src="" /></div>
     </div>
-    <%=request.getRealPath("/") %>
 	
 	<div class="inputArea">
 		 <label for="gName">상품명</label>
@@ -59,13 +59,25 @@
 		  <textarea class="form-control" rows="5" id="content" name="content"></textarea>
 	</div>
 	
+	<div class="inputArea">
+		 <label for="gMaker">생산자</label>
+		 <input type="text" id="gMaker" name="gMaker" />
+	</div>
+	
+	<div class="inputArea">
+		 <label for="gPhone">연락처</label>
+		 <input type="text" id="gPhone" name="gPhone" />
+	</div>
+	
+	<div class="inputArea">
+		 <label for="gReceptionDay">예상 배송일수</label>
+		 <input type="number" id="gReceptionDay" name="gReceptionDay" />
+	</div>
+	
 	<div id="summernote"></div>
 	<br>
 	<button type="submit" class="btn btn-primary">등록</button>  	
-  </form>
-  
-  <form id="form" action="/upload/uploadForm" method="post" enctype="multipart/form-data">
-       
+
   </form>
   
   
@@ -81,7 +93,24 @@
   	  $('textarea[name=content]').val(code);
     })
 
-	$(".file_wrap").change(function(){
+	// onImageUpload callback
+	$('#summernote').summernote({
+	  callbacks: {
+	    onImageUpload: function(files) {
+	      // upload image to server and create imgNode...
+	      $summernote.summernote('insertNode', imgNode);
+	    }
+	  }
+	});
+	
+	// summernote.image.upload
+	$('#summernote').on('summernote.image.upload', function(we, files) {
+	  // upload image to server and create imgNode...
+	  $summernote.summernote('insertNode', imgNode);
+	});
+    
+	// input 파일이 바뀌면 이미지 미리보기 적용
+ 	$("#org_file_name").change(function(){
 		 if(this.files && this.files[0]) {
 		    var reader = new FileReader;
 		    reader.onload = function(data) {

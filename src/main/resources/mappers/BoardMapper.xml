@@ -24,7 +24,7 @@
     	limit #{cri.pageStart}, #{cri.perPageNum}
   </select>
   
-  <select id="selectGoods" resultType="kr.green.testportfolio.vo.GoodsVo">
+  <select id="selectGoodsList" resultType="kr.green.testportfolio.vo.GoodsVo">
     select * from goods where isDel = 'N'
     	<if test="cri.type == 1">
     		and (title like concat('%',#{cri.search}, '%')
@@ -40,7 +40,7 @@
     	<if test="cri.type == 4">
     		and writer like concat('%',#{cri.search}, '%')	
     	</if>	
-    	order by bNum desc
+    	order by gNum desc
     	limit #{cri.pageStart}, #{cri.perPageNum}
   </select>
   
@@ -114,7 +114,7 @@
   
   <!-- 상품 등록 -->
 	<insert id="insertGoods" parameterType="kr.green.testportfolio.vo.GoodsVo">
-	 insert into goods (gPrice, gStock, gName, gMaker, gReceptionDay, cateCode, org_file_name, save_file_name, file_size, isDel, content, title, views, writer, registerDate, gDes, gPhone)
-	     values (#{gPrice}, #{gStock}, #{gName}, #{gMaker}, #{gReceptionDay}, #{cateCode}, #{org_file_name}, #{save_file_name}, #{file_size}, #{isDel}, #{content}, #{title}, #{views}, #{writer}, #{registerDate}, #{gDes}, #{gPhone})
+	 insert into goods (gPrice, gStock, gName, gMaker, gReceptionDay, cateCode, org_file_name, save_file_name, file_size, content, title, writer, registerDate, gPhone)
+	     values (#{goods.gPrice}, #{goods.gStock}, #{goods.gName}, #{goods.gMaker}, #{goods.gReceptionDay}, #{goods.cateCode}, #{goods.org_file_name}, #{goods.save_file_name}, #{goods.file_size}, #{goods.content}, #{goods.title}, #{goods.writer}, #{goods.registerDate}, #{goods.gPhone})
 	</insert>
 </mapper>

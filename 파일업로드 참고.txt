@@ -29,3 +29,9 @@ spring lagacy 만들고
 spring mvc 돌려보자
 
 mvc 구조 다시 공부해보자
+
+https://summernote.org/deep-dive/#onimageupload
+써머노트 api 참고
+
+https://m.blog.naver.com/PostView.nhn?blogId=heartflow89&logNo=221097971475&proxyReferer=https:%2F%2Fwww.google.com%2F
+써머노트 이미지 업로드. 글쓰기 할때 이미지 첨부하면 나가리 되는 거 고쳐야함 ㅇㅇ

@@ -132,7 +132,7 @@
 </c:if>
 
 <script type="text/javascript">
-	var a1 = document.getElementById('# recommended-sale').src;
+	var a1 = document.getElementById('#recommended-sale').src();
 	console.log(a1);
 	var content = $('#recommended-sale').src();
 	console.log(content);

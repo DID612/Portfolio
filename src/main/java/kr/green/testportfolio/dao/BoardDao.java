@@ -30,7 +30,9 @@ public interface BoardDao {
 
 	void insertGoods(@Param("goods")GoodsVo goods);
 
-	void selectGoods(@Param("cri")Criteria cri);
+	ArrayList<GoodsVo> selectGoodsList(@Param("cri")Criteria cri);
+
+	int getGoodsTotalCount(@Param("cri")Criteria cri);
 
 }
 		

@@ -50,12 +50,12 @@ public class BoardController {
 	
 	@RequestMapping(value = "/list/goods", method = RequestMethod.GET)
 	public String getListGoods(Model model, Criteria cri) {
-		ArrayList<GoodsVo> list = boardservice.getListGoods(cri);
-		int totalCount = boardservice.getTotalCount(cri);
+		ArrayList<GoodsVo> gdslist = boardservice.getListGoods(cri);
+		int totalCount = boardservice.getGoodsTotalCount(cri);
 		PageMaker pm = new PageMaker(totalCount, 2, cri);
 		model.addAttribute("pm", pm);
-		model.addAttribute("list", list);
-		return "/board/list";
+		model.addAttribute("gdslist", gdslist);
+		return "/board/goodsList";
 	}
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
@@ -100,28 +100,27 @@ public class BoardController {
 		
 		model.addAttribute("user", user);
 		model.addAttribute("category", JSONArray.fromObject(category));
-		System.out.println(category);
+
 		return "/board/goods";
 	}
 	
 	@RequestMapping(value = "/register/goods", method = RequestMethod.POST)
 	public String postRegisterGoods(Model model, CategoryVo category, MultipartFile uploadfile, GoodsVo goods) throws IOException {
-		/*saveFile(uploadfile);
 
-		*/
 		logger.info("registerGoodsPost");
-		saveFile(uploadfile);
+
 		if(uploadfile != null) {
 			logger.info("originalName:" + uploadfile.getOriginalFilename());
 			logger.info("size:" + uploadfile.getSize());
 			logger.info("ContentType:" + uploadfile.getContentType());
 		}
-		
-		String savedName = uploadFile(uploadfile.getOriginalFilename(), uploadfile.getBytes());
-		boardservice.insertCategory(category);
-		oriAndSavedFile(goods, uploadfile.getOriginalFilename(),savedName);
+		String savedName = saveFile(uploadfile, goods);
+//		goods.setOrg_file_name(uploadfile.getOriginalFilename());
+//		goods.setSave_file_name(savedName);
+//		String savedName = uploadFile(uploadfile.getOriginalFilename(), uploadfile.getBytes(), goods);
+//		boardservice.insertCategory(category);
 		boardservice.insertGoods(goods);
-		model.addAttribute("savedName", savedName);
+//		model.addAttribute("savedName", savedName);
 		
 		return "redirect:/list";
 	}
@@ -156,15 +155,12 @@ public class BoardController {
 	
 	//업로드된 파일을 저장하는 함수
 	private String uploadFile(String originalName, byte[] fileDate) throws IOException {
-		
 		UUID uid = UUID.randomUUID();
 		
 		String savedName = uid.toString() + "_" + originalName;
 		File target = new File(uploadPath, savedName);
 		
-		//org.springframework.util 패키지의 FileCopyUtils는 파일 데이터를 파일로 처리하거나, 복사하는 등의 기능이 있다.
 		FileCopyUtils.copy(fileDate, target);
-		
 		return savedName;
 		
 	}
@@ -174,7 +170,27 @@ public class BoardController {
 	    UUID uuid = UUID.randomUUID();
 	    String saveName = uuid + "_" + file.getOriginalFilename();
 	    logger.info("saveName: {}",saveName);	
+	    // File 객체를 생성
+	    File saveFile = new File(uploadPath,saveName); // 저장할 폴더 이름, 저장할 파일 이름
 
+	    try {
+	        file.transferTo(saveFile);
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+
+	    return saveName;
+	} // end saveFile(
+	
+	private String saveFile(MultipartFile file, GoodsVo goods){
+	    // 파일 이름 변경
+	    UUID uuid = UUID.randomUUID();
+	    String saveName = uuid + "_" + file.getOriginalFilename();
+	    logger.info("saveName: {}",saveName);	
+	    goods.setOrg_file_name(file.getOriginalFilename());
+	    goods.setSave_file_name(saveName);
+	    System.out.println(goods.getSave_file_name());
 	    // 저장할 File 객체를 생성(껍데기 파일)ㄴ
 	    File saveFile = new File(uploadPath,saveName); // 저장할 폴더 이름, 저장할 파일 이름
 
@@ -188,11 +204,6 @@ public class BoardController {
 	    return saveName;
 	} // end saveFile(
 	
-	private GoodsVo oriAndSavedFile(GoodsVo goods, String OriFile, String SavedFile) {
-		goods.setOrg_file_name(OriFile);
-		goods.setSave_file_name(SavedFile);
-		return goods;
-	}
 }
 
 

@@ -1,13 +1,19 @@
 package kr.green.testportfolio.vo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class GoodsVo {
 	private int gNum, gPrice, gStock, file_size, views, gReceptionDay;
 	private String gName, cateCode, gMaker, org_file_name, save_file_name, isDel, content, writer, title, gPhone;
+	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	private Date registerDate;
-
-
+	
+//
+//	SimpleDateFormat format = new SimpleDateFormat("yyyyy-MM-dd");
+//	
 	public int getgNum() {
 		return gNum;
 	}
@@ -201,7 +207,7 @@ public class GoodsVo {
 
 
 	public Date getRegisterDate() {
-		return registerDate;
+		return new Date();
 	}
 
 

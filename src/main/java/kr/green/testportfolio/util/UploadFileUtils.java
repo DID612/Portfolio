@@ -20,7 +20,6 @@ public class UploadFileUtils {
 		
 		//겹쳐지지 않는 파일명을 위한 유니크한 값 생성
 		UUID uid = UUID.randomUUID();
-		
 		//원본파일 이름과 UUID 결합
 		String savedName = uid.toString() + "_" + originalName;
 		
@@ -43,7 +42,7 @@ public class UploadFileUtils {
 		}else {
 			uploadedFileName = makeIcon(uploadPath, savedPath, savedName);
 		}
-		
+
 		//uploadedFileName는 썸네일명으로 화면에 전달된다.
 		return uploadedFileName;
 	}//

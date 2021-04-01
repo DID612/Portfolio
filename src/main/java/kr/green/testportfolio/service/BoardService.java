@@ -28,5 +28,7 @@ public interface BoardService {
 	void insertGoods(GoodsVo goods);
 
 	ArrayList<GoodsVo> getListGoods(Criteria cri);
+
+	int getGoodsTotalCount(Criteria cri);
 	
 }

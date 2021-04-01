@@ -39,6 +39,9 @@
 		   </li>
 		   
 		   <li class="nav-item">
+		     <a class="nav-link" href="${pageContext.request.contextPath}/list/goods">상품게시판</a>
+		   </li>
+		   <li class="nav-item">
 		     <a class="nav-link" href="${pageContext.request.contextPath}/register/goods">상품등록</a>
 		   </li>
 		</ul>

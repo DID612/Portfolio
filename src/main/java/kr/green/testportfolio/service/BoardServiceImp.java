@@ -66,9 +66,13 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public ArrayList<GoodsVo> getListGoods(Criteria cri) {
-		boardDao.selectGoods(cri);
-		return null;
+	public ArrayList<GoodsVo> getListGoods(Criteria cri) {	
+		return boardDao.selectGoodsList(cri);
+	}
+
+	@Override
+	public int getGoodsTotalCount(Criteria cri) {
+		return boardDao.getGoodsTotalCount(cri);
 	}
 	
 }
