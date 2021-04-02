@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.green.testportfolio.dao.GoodsDao">
+
+  <select id="selectGoodsList" resultType="kr.green.testportfolio.vo.GoodsVo">
+    select * from goods where isDel = 'N'
+    	<if test="cri.type == 1">
+    		and (title like concat('%',#{cri.search}, '%')
+    		or content like concat('%',#{cri.search}, '%')
+    		or writer like concat('%',#{cri.search}, '%'))
+    	</if>
+    	<if test="cri.type == 2">
+    		and title like concat('%',#{cri.search}, '%')
+    	</if>
+    	<if test="cri.type == 3">
+    		and content like concat('%',#{cri.search}, '%')
+    	</if>
+    	<if test="cri.type == 4">
+    		and writer like concat('%',#{cri.search}, '%')	
+    	</if>	
+    	order by gNum desc
+    	limit #{cri.pageStart}, #{cri.perPageNum}
+  </select>
+  
+  <select id="selectGoodsDetail" resultType="kr.green.testportfolio.vo.GoodsVo">
+    select * from goods where gNum = #{gNum}
+  </select>
+
+  <select id="getGoodsTotalCount" resultType="int">
+    select count(*) from goods where isDel = 'N'
+    	<if test="cri.type == 1">
+    		and (title like concat('%',#{cri.search}, '%')
+    		or content like concat('%',#{cri.search}, '%')
+    		or writer like concat('%',#{cri.search}, '%'))
+    	</if>
+    	<if test="cri.type == 2">
+    		and title like concat('%',#{cri.search}, '%')
+    	</if>
+    	<if test="cri.type == 3">
+    		and content like concat('%',#{cri.search}, '%')
+    	</if>
+    	<if test="cri.type == 4">
+    		and writer like concat('%',#{cri.search}, '%')
+    	</if>
+  </select>
+
+  <select id="selectCategory" resultType="kr.green.testportfolio.vo.CategoryVo">
+	select * from goods_category
+  </select>
+  
+    <insert id="insertCategory" parameterType="kr.green.testportfolio.vo.CategoryVo">
+  	insert into goods_category (cateCode, cateName, cateCodeRef, level)
+  		values (#{category.cateCode}, #{category.cateName}, #{category.cateCodeRef}, #{category.level)
+  </insert>
+  
+  <!-- 상품 등록 -->
+	<insert id="insertGoods" parameterType="kr.green.testportfolio.vo.GoodsVo">
+	 insert into goods (gPrice, gStock, gName, gMaker, gReceptionDay, cateCode, org_file_name, save_file_name, file_size, content, title, writer, registerDate, gPhone)
+	     values (#{goods.gPrice}, #{goods.gStock}, #{goods.gName}, #{goods.gMaker}, #{goods.gReceptionDay}, #{goods.cateCode}, #{goods.org_file_name}, #{goods.save_file_name}, #{goods.file_size}, #{goods.content}, #{goods.title}, #{goods.writer}, #{goods.registerDate}, #{goods.gPhone})
+	</insert>
+</mapper>

@@ -35,3 +35,16 @@ https://summernote.org/deep-dive/#onimageupload
 
 https://m.blog.naver.com/PostView.nhn?blogId=heartflow89&logNo=221097971475&proxyReferer=https:%2F%2Fwww.google.com%2F
 써머노트 이미지 업로드. 글쓰기 할때 이미지 첨부하면 나가리 되는 거 고쳐야함 ㅇㅇ
+
+https://velog.io/@ednadev/%EC%8A%A4%ED%94%84%EB%A7%81-7-File-Upload-Download
+https://velog.io/@godkimchichi/Java-19-%ED%8C%8C%EC%9D%BC-%EC%97%85%EB%A1%9C%EB%93%9C-%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C
+파일업로드 다운로드
+
+https://brunch.co.kr/@topasvga/705
+서버
+
+https://okky.kr/article/395854
+사용자 로컬 디렉토리의 이미지 출력
+
+https://www.wishket.com/project/47345/
+pc웹 모바일 웹
