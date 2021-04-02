@@ -3,7 +3,6 @@ package kr.green.testportfolio.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,11 +22,8 @@ import kr.green.testportfolio.pagination.Criteria;
 import kr.green.testportfolio.pagination.PageMaker;
 import kr.green.testportfolio.service.BoardService;
 import kr.green.testportfolio.vo.BoardVo;
-import kr.green.testportfolio.vo.CategoryVo;
-import kr.green.testportfolio.vo.GoodsVo;
 import kr.green.testportfolio.vo.TestVo;
 import kr.green.testportfolio.vo.UserVo;
-import net.sf.json.JSONArray;
 
 @Controller
 public class BoardController {
@@ -46,16 +42,6 @@ public class BoardController {
 		model.addAttribute("pm", pm);
 		model.addAttribute("list", list);
 		return "/board/list";
-	}
-	
-	@RequestMapping(value = "/list/goods", method = RequestMethod.GET)
-	public String getListGoods(Model model, Criteria cri) {
-		ArrayList<GoodsVo> gdslist = boardservice.getListGoods(cri);
-		int totalCount = boardservice.getGoodsTotalCount(cri);
-		PageMaker pm = new PageMaker(totalCount, 2, cri);
-		model.addAttribute("pm", pm);
-		model.addAttribute("gdslist", gdslist);
-		return "/board/goodsList";
 	}
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
@@ -90,41 +76,6 @@ public class BoardController {
 		return "/board/register";
 	}
 	
-	@RequestMapping(value = "/register/goods", method = RequestMethod.GET)
-	public String getRegisterGoodsBoard(Model model, HttpServletRequest req) {
-		logger.info("register/goods 호출");
-		HttpSession session = req.getSession();
-		UserVo user = (UserVo)session.getAttribute("user");
-		
-		List<CategoryVo> category = boardservice.selectCategory();
-		
-		model.addAttribute("user", user);
-		model.addAttribute("category", JSONArray.fromObject(category));
-
-		return "/board/goods";
-	}
-	
-	@RequestMapping(value = "/register/goods", method = RequestMethod.POST)
-	public String postRegisterGoods(Model model, CategoryVo category, MultipartFile uploadfile, GoodsVo goods) throws IOException {
-
-		logger.info("registerGoodsPost");
-
-		if(uploadfile != null) {
-			logger.info("originalName:" + uploadfile.getOriginalFilename());
-			logger.info("size:" + uploadfile.getSize());
-			logger.info("ContentType:" + uploadfile.getContentType());
-		}
-		String savedName = saveFile(uploadfile, goods);
-//		goods.setOrg_file_name(uploadfile.getOriginalFilename());
-//		goods.setSave_file_name(savedName);
-//		String savedName = uploadFile(uploadfile.getOriginalFilename(), uploadfile.getBytes(), goods);
-//		boardservice.insertCategory(category);
-		boardservice.insertGoods(goods);
-//		model.addAttribute("savedName", savedName);
-		
-		return "redirect:/list";
-	}
-	
 	@RequestMapping(value = "/register/test", method = RequestMethod.GET)
 	public String getRegisterTest(Model model) {
 		return "/board/test";
@@ -153,18 +104,6 @@ public class BoardController {
 		return "redirect:/list";
 	}
 	
-	//업로드된 파일을 저장하는 함수
-	private String uploadFile(String originalName, byte[] fileDate) throws IOException {
-		UUID uid = UUID.randomUUID();
-		
-		String savedName = uid.toString() + "_" + originalName;
-		File target = new File(uploadPath, savedName);
-		
-		FileCopyUtils.copy(fileDate, target);
-		return savedName;
-		
-	}
-	
 	private String saveFile(MultipartFile file){
 	    // 파일 이름 변경
 	    UUID uuid = UUID.randomUUID();
@@ -182,28 +121,6 @@ public class BoardController {
 
 	    return saveName;
 	} // end saveFile(
-	
-	private String saveFile(MultipartFile file, GoodsVo goods){
-	    // 파일 이름 변경
-	    UUID uuid = UUID.randomUUID();
-	    String saveName = uuid + "_" + file.getOriginalFilename();
-	    logger.info("saveName: {}",saveName);	
-	    goods.setOrg_file_name(file.getOriginalFilename());
-	    goods.setSave_file_name(saveName);
-	    System.out.println(goods.getSave_file_name());
-	    // 저장할 File 객체를 생성(껍데기 파일)ㄴ
-	    File saveFile = new File(uploadPath,saveName); // 저장할 폴더 이름, 저장할 파일 이름
-
-	    try {
-	        file.transferTo(saveFile); // 업로드 파일에 saveFile이라는 껍데기 입힘
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	        return null;
-	    }
-
-	    return saveName;
-	} // end saveFile(
-	
 }
 
 

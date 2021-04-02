@@ -7,7 +7,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class GoodsVo {
 	private int gNum, gPrice, gStock, file_size, views, gReceptionDay;
-	private String gName, cateCode, gMaker, org_file_name, save_file_name, isDel, content, writer, title, gPhone;
+	private String gName, cateCode, gMaker, org_file_name, save_file_name, 
+	isDel, content, writer, title, gPhone, thumb_img;
 	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	private Date registerDate;
 	
@@ -214,6 +215,18 @@ public class GoodsVo {
 
 	public void setRegisterDate(Date registerDate) {
 		this.registerDate = registerDate;
+	}
+
+	
+
+	public String getThumb_img() {
+		return thumb_img;
+	}
+
+
+
+	public void setThumb_img(String thumb_img) {
+		this.thumb_img = thumb_img;
 	}
 
 

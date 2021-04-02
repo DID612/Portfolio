@@ -237,6 +237,12 @@
 		    <classifier>jdk15</classifier>
 		</dependency>
 				
+		<!-- 썸네일 이미지 라이브러리-->
+		<dependency>
+		    <groupId>net.coobird</groupId>
+		    <artifactId>thumbnailator</artifactId>
+		    <version>0.4.14</version>
+		</dependency>
 		
 	</dependencies>
 	

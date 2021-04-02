@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import kr.green.testportfolio.pagination.Criteria;
 import kr.green.testportfolio.vo.BoardVo;
-import kr.green.testportfolio.vo.CategoryVo;
-import kr.green.testportfolio.vo.GoodsVo;
 
 public interface BoardService {
 
@@ -21,14 +19,5 @@ public interface BoardService {
 
 	int getTotalCount(Criteria cri);
 
-	ArrayList<CategoryVo> selectCategory();
-
-	void insertCategory(CategoryVo category);
-
-	void insertGoods(GoodsVo goods);
-
-	ArrayList<GoodsVo> getListGoods(Criteria cri);
-
-	int getGoodsTotalCount(Criteria cri);
 	
 }
